@@ -52,6 +52,13 @@ class EmployeeController extends Controller
             $employee->employee_type_id = $request->employee_type_id;
             $employee->address = $request->address;
             $employee->phone = $request->phone;
+            if ($request->hasFile('profile_picture')) {
+                $image = $request->file('profile_picture');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/profile-picture/');
+                $image->move($destinationPath, $name);
+                $employee->profile_picture = $name;
+            }
             $employee->save();
             return back()->with('message','Employee Added Successfully');
         } catch (Exception $e) {

@@ -10,7 +10,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" action="{{route('employee.store')}}" method="POST">
+                <form class="form-horizontal" action="{{route('employee.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -37,6 +37,12 @@
                             <label for="phone">Phone : </label>
                             <div>
                                 <input type="number" name="phone" class="form-control" id="phone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile_picture">Profile Picture</label>
+                            <div>
+                                <input type="file" name="profile_picture" class="form-control" id="profile_picture">
                             </div>
                         </div>
                     </div>
