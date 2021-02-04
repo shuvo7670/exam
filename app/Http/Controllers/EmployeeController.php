@@ -113,6 +113,18 @@ class EmployeeController extends Controller
             $employee->employee_type_id = $request->employee_type_id;
             $employee->address = $request->address;
             $employee->phone = $request->phone;
+            if ($request->hasFile('profile_picture')) {
+                // Delete Old Image
+                if (isset($employee->profile_picture)){
+                    unlink('uploads/profile-picture/'.$employee->profile_picture);
+                }
+                // End Delete Old Image
+                $image = $request->file('profile_picture');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/profile-picture/');
+                $image->move($destinationPath, $name);
+                $employee->profile_picture = $name;
+            }
             $employee->save();
             return back()->with('message','Employee Updated Successfully');
         } catch (Exception $e) {
@@ -129,6 +141,9 @@ class EmployeeController extends Controller
     public function destroy(Request $request)
     {
         $employee = Employee::findOrFail($request->employee_id);
+        if (isset($employee->profile_picture)){
+            unlink('uploads/profile-picture/'.$employee->profile_picture);
+        }
         $employee->delete();
         return back()->with('message','Successfully Employee Deleted');
     }

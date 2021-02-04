@@ -18,6 +18,7 @@
                         <th>Phone</th>
                         <th>Address</th>
                         <th>Salary</th>
+                        <th>Profile</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -31,6 +32,9 @@
                                     <td>{{$employee->phone}}</td>
                                     <td>{{$employee->address}}</td>
                                     <td>{{$employee->employee_type->salary}}</td>
+                                    <td>
+                                        <img src="{{asset('uploads/profile-picture/'.$employee->profile_picture)}}" width="70" alt="">
+                                    </td>
                                     <td>
                                         <a href="{{route('employee.edit',['employee_id' => $employee->id])}}" class="btn btn-primary">Edit</a>
                                         <a href="{{route('employee.delete',['employee_id' => $employee->id])}}" class="btn btn-danger">Delete</a>
